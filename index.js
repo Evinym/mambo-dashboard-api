@@ -1,21 +1,22 @@
 const express = require('express');
 const cors = require('cors');
-const FlightInfoService = require('./src/FlightInfoService');
-const cron = require('node-cron');
 const mongoose = require('mongoose');
-const express = require('express');
 
-const Plane = require('./src/Plane');
+const PlaneService = require('./src/PlaneService');
 
-let port = 8082;
+let port = 8083;
 let app = express();
 
 mongoose.connect('mongodb://localhost/mambo');
 
+
+app.use('/planes', PlaneService);
+
+app.get('/', (req, res) => {
+      res.end('Bonjour à tous');
+    }
+);
+
+
 app.use(cors());
-
-let service = new FlightInfoService();
-
-cron.schedule('* * * * * *', function() {
-  service.performRequest();
-}, null, true, 'America/Los_Angeles');
+app.listen(port);

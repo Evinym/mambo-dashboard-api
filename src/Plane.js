@@ -18,5 +18,3 @@ planeSchema.pre('save', (next) => {
 });
 
 module.exports = mongoose.model('Plane', planeSchema);
-
-@
